@@ -1,53 +1,83 @@
-# CueScreen: AI-Powered Tutor Screening
+# CueScreen: AI Tutor Screener for Cuemath 🎙️🤖
 
-CueScreen is an automated, voice-driven AI interviewing platform designed for screening Cuemath tutoring candidates. It conducts a 5-minute interactive voice interview to assess a candidate's soft skills, pedagogical intuition, and communication clarity. After the interview, it automatically generates an evidence-based evaluation report citing direct quotes from the candidate.
+**CueScreen** is an automated, voice-first AI screening platform built for the Cuemath tutor recruitment pipeline. It replaces the expensive, slow, and unscalable 10-minute human HR screening calls with a high-fidelity, interactive AI recruiter that assesses critical soft skills in real-time.
 
-## 🚀 Architecture & Tech Stack
+---
 
-This project uses a separated frontend/backend architecture to ensure API keys are never exposed to the client.
+## 🎯 The Problem
+Cuemath hires hundreds of tutors monthly. Every candidate requires a screening call to evaluate:
+- **Communication Clarity**: Can they explain concepts without stumbling?
+- **Patience & Empathy**: How do they handle a struggling student?
+- **Simplification Ability**: Can they explain fractions to a 9-year-old?
+- **Temperament & Warmth**: Are they encouraging and professional?
 
-*   **Frontend:** React + Vite (Vanilla CSS)
-*   **Backend:** Node.js + Express
-*   **AI Engine (Reasoning & Transcription):** Google Gemini 2.5 Flash
-*   **Text-to-Speech (TTS):** gTTS (Google Translate API)
-*   **Deployment:** Vercel (Frontend) & Railway (Backend)
+**CueScreen conducts these 5-minute interviews autonomously, generating an evidence-based rubric and report for the HR team.**
 
-## 💡 The "Cost Pivot" (Engineering Decision)
+---
 
-**Original Plan:** The initial architecture utilized **Anthropic Claude 3.5 Sonnet** for the interview loop, **OpenAI Whisper** for speech-to-text, and **OpenAI TTS (`nova`)** for voice generation. 
+## 🚀 Live Demo & Submission Assets
+- **Live URL:** [Insert Vercel/Railway Link Here]
+- **Video Walkthrough:** [Insert Loom/YouTube Link Here]
+- **GitHub Repository:** [https://github.com/gk345851/CueScreen](https://github.com/gk345851/CueScreen)
 
-**The Challenge:** Both Anthropic and OpenAI require pre-purchased credits to operate, leaving the application unusable on `$0` budget free-tiers during the project deadline.
+---
 
-**The Pivot:** We executed a **100% Free Architecture Pivot** without compromising functionality:
-1.  **Reasoning:** Migrated the interviewer and evaluator system prompts to `gemini-2.5-flash`, which offers a generous 1,500 daily request free tier.
-2.  **Transcription:** Replaced OpenAI Whisper with Gemini's native multimodal audio understanding (passing base64 `.webm` chunks directly to the model).
-3.  **Voice Output:** Replaced OpenAI's paid TTS with the NPM `gtts` wrapper, which buffers free MP3 files.
+## 🛠️ The Tech Stack (Engineered for Scale & Cost)
+- **Frontend:** React + Vite (Vanilla CSS)
+- **Backend:** Node.js + Express
+- **Database:** MongoDB (Mongoose) — Handles candidate persistence & security.
+- **AI Core:** **Google Gemini 2.5 Flash** (Primary Reasoning & Transcription).
+- **Authentication:** JWT + Bcrypt hashing.
+- **Email System:** Nodemailer + Gmail SMTP for secure Password Recovery.
+- **UI/Charts:** Recharts (SVG Radar Analysis).
 
-*This pivot demonstrated adaptability, API abstraction, and cost-aware engineering, dropping the interview cost from ~$0.15 to **$0.00**.*
+---
 
-## 🧠 Core Features & Implementations
+## 🧠 Smart Choices & Technical Tradeoffs
 
-### 1. Evidence-Based Evaluation
-The evaluator prompt is strictly constrained to output JSON. More importantly, it requires **mandatory direct quotes** for every dimension scored (Clarity, Simplicity, Patience, Warmth, Fluency). 
-*   **Why?** Without this, LLMs confidently hallucinate performance feedback. Quote-forcing makes every machine-made judgment auditable by an HR reviewer.
+### 1. The "Gemini Multimodal" Transcription Pivot
+Originally, the project considered OpenAI Whisper. However, to stay within a **$0.00 infrastructure budget**, I pivoted to using **Gemini 2.5 Flash's** native audio understanding. We stream base64 `.webm` audio directly to the model. 
+- **Result:** Zero-cost transcription with near-perfect accuracy and significantly lower latency than separate STT API calls.
 
-### 2. Strict Session Control (`MAX_EXCHANGES`)
-Instead of using a rigid timer (which might cut a candidate off mid-thought), the conversation is strictly capped at **5 exchanges**.
-*   **Why?** This prevents the AI from falling into an endless conversational loop and guarantees the screening takes exactly 4-5 minutes of real-world speaking time.
+### 2. Evidence-Based Evaluation (Anti-Hallucination)
+LLMs are prone to "vibes-based" grading. To solve this, the **Evaluation Rubric** (in `server/prompts/evaluator.js`) enforces a strict rule: **No score can be given without a direct verbatim quote from the transcript.**
+- **Result:** Every grade (Clarity, Patience, etc.) is auditable. HR doesn't just see a "9/10"; they see the exact sentence that earned it.
 
-### 3. Progressive Audio MIME Detection
-Different browsers support different audio codecs (`audio/webm;codecs=opus` on Chrome, `audio/mp4` on Safari). The `useAudioRecorder` hook uses progressive `.isTypeSupported()` detection to ensure the microphone records reliably across devices.
+### 3. Cuemath Branding Pivot (Flat UI)
+During the polish phase, I pivoted away from generic "Glassmorphism" to match **Cuemath's specific brand identity**:
+- High-contrast **Black & Yellow** palette (`#FFB800`).
+- Geometric typography (**Poppins**).
+- **Hard, 2px solid borders** and zero border-radius to match Cuemath's gamified EdTech aesthetic.
 
-### 4. Resilient Session Recovery
-Every interview transcript payload is saved to `localStorage` indexed by the candidate's name. If a candidate accidentally refreshes the page mid-interview, the UI restores the exact conversation state.
+### 4. Resilient Interview State
+Using `localStorage` and Backend Persistence, CueScreen handles "the messy reality":
+- **Network drops?** The app resumes exactly where the candidate left off.
+- **Accidental Refresh?** The AI memory remains intact.
 
-## 🐛 Notable Challenges Researched & Resolved
+---
 
-*   **React 18 Strict Mode Double-Mounts:** During local development, React mounts `useEffect` twice. This triggered the AI to fetch the "Hello" voice file twice simultaneously, resulting in queued, echoing audio. Solved via a `useRef` initialization guard.
-*   **Gemini ChatSession Constraints:** Gemini's `startChat` helper strictly demands alternating `user` / `model` history formats. If a transcription glitch caused two consecutive `user` turns, the backend crashed. Solved by bypassing `startChat` and using `generateContent` with a manually formatted history array.
-*   **Audio Blob Memory Leaks:** `URL.createObjectURL(blob)` calls are not automatically garbage collected by the browser. Failing to `URL.revokeObjectURL()` the TTS files caused memory bloat over a full session.
+## 📊 The Rubric (Dimensions Assessed)
+After each 5-minute interaction, CueScreen generates a **Point-in-Time Radar Graph** across 5 key metrics:
+1. **Clarity & Conciseness**: Measuring if the tutor is direct or prone to rambling.
+2. **Pedagogical Simplification**: Assessing the "6-Year-Old Test" for complex topics.
+3. **Patience & Empathy**: How the tutor reacts to simulated student confusion.
+4. **Warmth & Encouragement**: Level of positive reinforcement.
+5. **English Fluency**: Standardized linguistic capability assessment.
 
-## 🔮 Future Enhancements (With more time/budget)
-1.  **Real-Time Voice Activity Detection (VAD):** Replace the push-to-record button with automated silence detection.
-2.  **ElevenLabs Voices:** Integrate premium, ultra-realistic voice models to enhance the candidate's conversational comfort.
-3.  **Admin Dashboard:** Build a secure view for HR teams to sort reports by recommendation score and review audio replays synchronized to the transcript.
+---
+
+## 🔮 What's Next? (Future Roadmap)
+- [ ] **Real-time VAD**: Removing the push-to-talk button for automated silence detection.
+- [ ] **Native Video Feedback**: Analyzing facial expressions during the explanation phase.
+- [ ] **HR Admin Panel**: Multi-tenant dashboard to sort candidates by "Simplicity" or "Clarity" scores.
+
+---
+
+## 🛠️ Local Setup
+1. Clone the repo.
+2. Run `npm install` in both `client/` and `server/` folders.
+3. Add your `GEMINI_API_KEY`, `MONGO_URI`, and `SMTP_PASS` to `server/.env`.
+4. Run `npm start` (Backend) and `npm run dev` (Frontend).
+
+**Developed with ❤️ for the Cuemath AI Challenge.**
+**Deadline: 13th April 2026**
