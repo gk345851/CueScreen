@@ -21,8 +21,8 @@ Use this script as a guide for your Loom/Screen recording. Keep the tone profess
 - **Visual:** Hover over the Recharts Radar Graph.
 - **Say:** "This allows HR to audit the AI’s judgment immediately without re-listening to the entire 5-minute recording."
 
-### Phase 4: Security & Process (2:30 - 3:15)
-- **Say:** "Security was a priority. We use Bcrypt for password hashing and a Proxy backend architecture so my Gemini API keys stay hidden on the server. During development, I faced a major CORS challenge between Railway and Vercel, which I solved by implementing a dynamic origin-check middleware."
+### Phase 4: Multimodal Pipeline & Process (2:30 - 3:15)
+- **Say:** "I also hit some complex engineering challenges with the **Multimodal Pipeline**. Getting Gemini to perfectly process raw base64 audio without an intermediate storage bucket required fine-tuning the payload encoding for low-latency responses. I also implemented a **Resilient Session Recovery** system that uses JWT-indexed localized storage to handle browser refreshes seamlessly."
 
 ### Phase 5: The Outro (3:15 - 3:30)
 - **Say:** "That’s CueScreen—Functional, secure, and ready to scale Cuemath’s tutor onboarding. Thanks for watching!"

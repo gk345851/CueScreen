@@ -21,7 +21,7 @@ Below are my submission assets for **CueScreen**:
 - **Evidence-Based Evaluation:** To solve the problem of LLM hallucination in screening, every score in the final report is backed by a **mandatory verbatim quote** from the candidate. 
 - **Delight & Brand:** The UI is custom-styled to match the **Cuemath Flat Design** aesthetic (Yellow/Black/Poppins) to ensure a high-fidelity experience for new candidates.
 
-I hit some interesting challenges with CORS propagation and React double-mounting during development, which I’ve documented in the `docs/PROCESS_THINKING.md` file.
+I hit some technical challenges with the **Multimodal Pipeline optimization** and implementing a **Resilient Session Recovery** system for browser refreshes, which I’ve documented in the `docs/PROCESS_THINKING.md` file.
 
 I look forward to your feedback!
 
