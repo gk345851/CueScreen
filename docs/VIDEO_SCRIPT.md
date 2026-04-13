@@ -1,59 +1,56 @@
-# CueScreen — Video Walkthrough Script
+# Final Video Walkthrough Script (3–5 Minutes)
 
-> **Target length:** 3–4 minutes. Record in one take. Don't read this word-for-word — treat it as talking points.
-
----
-
-## Opening (30s)
-Start with the site open on the login page.
-
-*"So I built CueScreen — an AI-powered tutor screener for Cuemath. The problem is real: they're hiring hundreds of tutors every month, and every single one goes through a 10-minute HR call just to check soft skills — communication, patience, how they explain things to kids. That's not scalable. So I automated it."*
-
-*"Let me just walk you through it."*
+> **Pro-Tip:** Speak naturally. This is your project—show your passion for the engineering behind it. Fast-forward the middle of the interview in editing as planned.
 
 ---
 
-## The Product (1 min)
-Register or log in, then go to the interview screen.
+## 1. The "Why" (45s)
+**Visual:** Start with the Landing Page or the GitHub Repo.
 
-*"When a candidate lands here, they get a brief intro and start a live voice conversation with Aria — that's the AI interviewer I built. It's not a form, not a quiz. It's an actual back-and-forth conversation."*
+"Hey everyone, I’m Gaurav. For the Cuemath challenge, I chose **Problem 3: The AI Tutor Screener**. While the Flashcard Engine and Social Media Studio were interesting, I felt this problem had the highest real-world impact. Cuemath's biggest scaling bottleneck is recruitment—finding tutors who don't just know math, but actually have the empathy and simplification skills to teach kids.
 
-Start the interview. Record yourself answering a question naturally — something like "explain fractions to a 9-year-old."
-
-*"Aria is designed to probe. If your answer is too short or vague, it'll follow up — exactly like a real interviewer would. It's also doing a role-play here — it's literally pretending to be a confused 9-year-old student to test whether you can actually simplify on the fly."*
-
-After 2-3 exchanges, end the interview.
+From an engineering perspective, building a real-time voice system that evaluates 'soft-skills' like patience and warmth is a much more nuanced challenge than processing PDFs or generating images. I wanted to see if I could build something that feels human, not robotic."
 
 ---
 
-## The Report (45s)
-Let the evaluation load and show the radar chart.
+## 2. Navigating the Platform & Tech Stack (1m)
+**Visual:** Quick tour of Login/Register, then land on the Dashboard.
 
-*"This is the output the HR team actually sees. Five dimensions — clarity, simplicity, patience, warmth, English fluency — scored on a radar graph. But here's the part I'm most happy with:"*
+"The platform is built on a **MERN stack** (MongoDB, Express, React, Node). I implemented a full **JWT-based authentication** system from the start because interview data is sensitive. 
 
-Point to a specific score with a quote underneath it.
-
-*"Every single score is backed by a direct quote from the conversation. The AI cannot give a rating without pulling a verbatim line from what the candidate said. That was a deliberate prompt-engineering decision to prevent hallucination — because an HR person needs to be able to challenge that score, and they should have the receipts right there."*
+Visually, I chose a **Flat UI design system** using Cuemath’s specific palette (#FFB800 Yellow/Black). I intentionally avoided generic 'glassmorphism' or heavy shadows. I wanted a clean, professional look that fits the Cuemath brand—sharp 2px borders and Poppins typography. It feels fresh and fast."
 
 ---
 
-## Key Technical Decisions (1 min)
-Stay on the report screen or switch to a quick code view if comfortable.
+## 3. The Technical Edge: Multimodal Pipeline (45s)
+**Visual:** Enter the interview screen. Click 'Start'.
 
-*"The interesting design choice was the AI stack. The typical approach is: record audio → transcribe with Whisper → send text to an LLM → generate a response. Three API calls, three points of latency, three costs.*
+"Now, here’s a key technical decision. Most people would use a three-step pipeline: Audio → Whisper (STT) → LLM → TTS. That creates huge latency and multiple points of failure.
 
-*I collapsed that. The audio goes directly to Gemini 2.5 Flash as a multimodal input — it transcribes and reasons in the same call. Cut the latency, cut the cost to zero on the free tier."*
+Instead, I built a **Multimodal Pipeline** using **Gemini 2.5 Flash**. I’m streaming the raw base64 audio data directly to the model. It handles transcription and reasoning in a single pass. This massively reduces latency and, importantly for a startup-style project, it brought my infrastructure cost to zero on the free tier without sacrificing accuracy."
 
-*"The trade-off was payload size — you're sending raw audio chunks base64-encoded over the wire — but for an interview tool where you're sending one response at a time, that's completely fine."*
+**[ACTION: Fast-forward the interview 3-5 seconds in your edit]**
 
----
-
-## What I'd Build Next (30s)
-*"If I had more time, the biggest thing I'd add is Voice Activity Detection — right now the candidate clicks a button to speak. In a real product, that friction kills the naturalistic feel of the conversation. VAD would make it feel much closer to an actual phone screen."*
-
-*"I'd also add an HR dashboard — a view where Cuemath's team can filter candidates by score, see the full transcript, and one-click move them to the next round."*
+"I'm fast-forwarding the middle part here, but notice how the AI (Aria) doesn't just ask a list of questions. It's programmed to role-play. It will pretend to be a confused student to see if I can explain fractions to a 9-year-old without getting frustrated."
 
 ---
 
-## Close (15s)
-*"That's CueScreen. It's live, it's deployed, and the repo is public. Thanks for watching."*
+## 4. The Result: Evidence-Based Assessment (1m)
+**Visual:** Show the final Report Screen with the Radar Chart.
+
+"Once the interview ends, we generate this report. We have an interactive **Radar Chart** built with Recharts, scoring the candidate on Clarity, Simplicity, Patience, Warmth, and Fluency.
+
+But here is my 'Smart Choice' for this project: **The AI cannot give a score without a Receipt.** 
+
+If you look here under 'Patience', the AI has pulled a **direct verbatim quote** from the transcript to justify that 9/10 score. This solves the LLM hallucination problem. An HR manager can look at this and immediately see the evidence for the grade. It makes the AI's assessment transparent and auditable."
+
+---
+
+## 5. Process Thinking & Future (30s)
+**Visual:** Switch back to your face or a 'Summary' slide.
+
+"In terms of process, I hit some interesting hurdles with **Multimodal Encoding**—standardizing the audio frequency so the model wouldn't reject the file took some trial and error. I also spent time building a **Resilient Session Recovery** system. If you refresh the page mid-interview, your transcript is saved in a JWT-linked state so you don't lose progress.
+
+If I had more time, I’d add **Voice Activity Detection (VAD)** to remove the 'Click to Speak' button and make it a pure hands-free experience. 
+
+That’s CueScreen. Thanks for watching!"

@@ -1,8 +1,11 @@
 # Process Thinking: The Evolution of CueScreen
 
-This document outlines the engineering journey, the challenges encountered, and the key pivots made during the development of the AI Tutor Screener.
+## 1. Why Problem 3? (Choosing the AI Tutor Screener)
+Out of the three challenges, I selected the **AI Tutor Screener** for two primary reasons:
+- **Scaling Quality:** Cuemath's biggest bottleneck isn't content generation (Problem 2) or study tools (Problem 1), but the human-intensive process of vetting tutors. Automating this has the highest business ROI.
+- **Technical Complexity:** Building a natural voice-based conversational AI that evaluates 'soft skills' (patience, warmth) is a multi-dimensional engineering challenge that goes beyond simple text-processing or image generation. It required a deep dive into multimodal LLM architectures and real-time audio handling.
 
-## 1. What we tried first
+## 2. What we tried first
 Initial development focused on a generic "Glassmorphism" UI and a stateless interview flow. The assumption was that a simple, lightweight interface would suffice for a technical demonstration.
 
 ## 2. What broke & Why
