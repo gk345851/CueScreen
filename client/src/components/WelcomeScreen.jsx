@@ -31,7 +31,7 @@ export default function WelcomeScreen({ onStart }) {
   const canStart = name.trim().length >= 2 && micStatus === 'granted';
 
   return (
-    <div className="screen" style={{ background: 'linear-gradient(145deg, #eef2ff 0%, #fafaf9 50%, #fef9c3 100%)' }}>
+    <div className="screen" style={{ background: '#FFFDF5' }}>
       <div className="card">
         {/* Brand */}
         <div className="brand">
@@ -42,10 +42,10 @@ export default function WelcomeScreen({ onStart }) {
           </div>
         </div>
 
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', lineHeight: 1.2, marginBottom: '0.5rem' }}>
-          Welcome to your screening interview
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.85rem', fontWeight: 900, lineHeight: 1.15, marginBottom: '0.5rem' }}>
+          Welcome to your <span style={{ background: 'var(--cm-yellow)', padding: '0 4px' }}>screening</span> interview
         </h1>
-        <p style={{ color: 'var(--stone-600)', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
+        <p style={{ color: 'var(--stone-600)', fontSize: '0.95rem', marginBottom: '1.5rem', fontWeight: 500 }}>
           You'll have a short voice conversation with our AI interviewer, Aria. She'll ask about your teaching style — no math tests, just a conversation about how you connect with students.
         </p>
 
