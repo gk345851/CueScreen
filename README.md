@@ -4,33 +4,23 @@
 
 ---
 
-## 🎯 The Problem
-Cuemath hires hundreds of tutors monthly. Every candidate requires a screening call to evaluate:
-- **Communication Clarity**: Can they explain concepts without stumbling?
-- **Patience & Empathy**: How do they handle a struggling student?
-- **Simplification Ability**: Can they explain fractions to a 9-year-old?
-- **Temperament & Warmth**: Are they encouraging and professional?
-
-**CueScreen conducts these 5-minute interviews autonomously, generating an evidence-based rubric and report for the HR team.**
+## 🎯 Why Problem 3? (The Choice)
+Out of the three challenges, I selected the **AI Tutor Screener** for two primary reasons:
+- **Scaling Quality:** Cuemath's biggest bottleneck isn't content generation or study tools, but the human-intensive process of vetting tutors. Automating this has the highest business ROI.
+- **Technical Complexity:** Building a natural voice-based conversational AI that evaluates 'soft skills' (patience, warmth) is a multi-dimensional engineering challenge. It required a deep dive into multimodal LLM architectures and real-time audio handling.
 
 ---
 
-## 🚀 Live Demo & Submission Assets
+## 🚀 Live Demo & Submission
 - **Live URL:** [Insert Vercel URL Here]
 - **Video Walkthrough:** [Insert Loom/YouTube Link Here]
 - **GitHub Repository:** [https://github.com/gk345851/CueScreen](https://github.com/gk345851/CueScreen)
-
-### 📄 Submission Documentation
-Essential documents prepared for the placement review:
-- **[Write-up: Process Thinking](file:///d:/Projects/WIP/CueMath/docs/PROCESS_THINKING.md)**: Challenges, pivots, and tradeoffs.
-- **[Walkthrough Script](file:///d:/Projects/WIP/CueMath/docs/VIDEO_SCRIPT.md)**: My guide for the video demonstration.
-- **[Submission Email](file:///d:/Projects/WIP/CueMath/docs/SUBMISSION_EMAIL.md)**: Final template for the review team.
 
 ---
 
 ## 🛠️ The Tech Stack (Engineered for Scale & Cost)
 - **Frontend:** React + Vite (Vanilla CSS)
-- **Backend:** Node.js + Express
+- **Backend:** Node.js + Express (Railway)
 - **Database:** MongoDB (Mongoose) — Handles candidate persistence & security.
 - **AI Core:** **Google Gemini 2.5 Flash** (Primary Reasoning & Transcription).
 - **Authentication:** JWT + Bcrypt hashing.
@@ -46,36 +36,28 @@ Originally, the project considered OpenAI Whisper. However, to stay within a **$
 - **Result:** Zero-cost transcription with near-perfect accuracy and significantly lower latency than separate STT API calls.
 
 ### 2. Evidence-Based Evaluation (Anti-Hallucination)
-LLMs are prone to "vibes-based" grading. To solve this, the **Evaluation Rubric** (in `server/prompts/evaluator.js`) enforces a strict rule: **No score can be given without a direct verbatim quote from the transcript.**
-- **Result:** Every grade (Clarity, Patience, etc.) is auditable. HR doesn't just see a "9/10"; they see the exact sentence that earned it.
+LLMs are prone to "vibes-based" grading. To solve this, the evaluation engine enforces a strict rule: **No score can be given without a direct verbatim quote from the transcript.**
+- **Result:** Every grade is auditable. HR sees the exact sentence that earned the score.
 
 ### 3. Cuemath Branding Pivot (Flat UI)
-During the polish phase, I pivoted away from generic "Glassmorphism" to match **Cuemath's specific brand identity**:
+I intentionally moved away from generic "Glassmorphism" to match **Cuemath's specific brand identity**:
 - High-contrast **Black & Yellow** palette (`#FFB800`).
 - Geometric typography (**Poppins**).
-- **Hard, 2px solid borders** and zero border-radius to match Cuemath's gamified EdTech aesthetic.
-
-### 4. Resilient Interview State
-Using `localStorage` and Backend Persistence, CueScreen handles "the messy reality":
-- **Network drops?** The app resumes exactly where the candidate left off.
-- **Accidental Refresh?** The AI memory remains intact.
+- **Hard, 3px solid borders** and zero border-radius to match Cuemath's gamified EdTech aesthetic.
 
 ---
 
-## 📊 The Rubric (Dimensions Assessed)
-After each 5-minute interaction, CueScreen generates a **Point-in-Time Radar Graph** across 5 key metrics:
-1. **Clarity & Conciseness**: Measuring if the tutor is direct or prone to rambling.
-2. **Pedagogical Simplification**: Assessing the "6-Year-Old Test" for complex topics.
-3. **Patience & Empathy**: How the tutor reacts to simulated student confusion.
-4. **Warmth & Encouragement**: Level of positive reinforcement.
-5. **English Fluency**: Standardized linguistic capability assessment.
+## 📈 Process Thinking: What Broke & Why
+- **Multimodal Pipeline Optimization:** Ensuring base64 audio chunks were properly formatted for the model while maintaining low latency was a challenge. I had to standardize the frequency and encoding to prevent rejection.
+- **Database Initialization:** During deployment, the backend initially "hung" because the database logic was defined but not correctly imported in the main entry point—a small but critical fix.
+- **Resilient Session Recovery:** I implemented a system that synchronizes the interview transcript to `localStorage`. If a candidate refreshes mid-interview, the AI’s memory remains intact via JWT-linked persistence.
 
 ---
 
-## 🔮 What's Next? (Future Roadmap)
-- [ ] **Real-time VAD**: Removing the push-to-talk button for automated silence detection.
-- [ ] **Native Video Feedback**: Analyzing facial expressions during the explanation phase.
-- [ ] **HR Admin Panel**: Multi-tenant dashboard to sort candidates by "Simplicity" or "Clarity" scores.
+## 🔮 Future Roadmap (What's Next?)
+- [ ] **Real-time VAD:** Implementing Voice Activity Detection so the candidate doesn't have to click a button to talk.
+- [ ] **Streaming TTS:** Streaming the AI's response word-for-word to reduce perceived latency to near-zero.
+- [ ] **HR Admin Panel:** A dashboard to sort candidates by "Simplicity" or "Clarity" scores.
 
 ---
 
