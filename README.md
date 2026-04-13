@@ -16,9 +16,15 @@ Cuemath hires hundreds of tutors monthly. Every candidate requires a screening c
 ---
 
 ## 🚀 Live Demo & Submission Assets
-- **Live URL:** [Insert Vercel/Railway Link Here]
+- **Live URL:** [Insert Vercel URL Here]
 - **Video Walkthrough:** [Insert Loom/YouTube Link Here]
 - **GitHub Repository:** [https://github.com/gk345851/CueScreen](https://github.com/gk345851/CueScreen)
+
+### 📄 Submission Documentation
+Essential documents prepared for the placement review:
+- **[Write-up: Process Thinking](file:///d:/Projects/WIP/CueMath/docs/PROCESS_THINKING.md)**: Challenges, pivots, and tradeoffs.
+- **[Walkthrough Script](file:///d:/Projects/WIP/CueMath/docs/VIDEO_SCRIPT.md)**: My guide for the video demonstration.
+- **[Submission Email](file:///d:/Projects/WIP/CueMath/docs/SUBMISSION_EMAIL.md)**: Final template for the review team.
 
 ---
 
