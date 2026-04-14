@@ -12,8 +12,8 @@ Out of the three challenges, I selected the **AI Tutor Screener** for two primar
 ---
 
 ## 🚀 Live Demo & Submission
-- **Live URL:** [https://cue-screen.vercel.app/](https://cue-screen.vercel.app/)
-- **Video Walkthrough:** [https://www.loom.com/share/7646e8161fd14a9d9b28e4645ac85c82](https://www.loom.com/share/7646e8161fd14a9d9b28e4645ac85c82)
+- **Live URL:** [Insert Vercel URL Here]
+- **Video Walkthrough:** [Insert Loom/YouTube Link Here]
 - **GitHub Repository:** [https://github.com/gk345851/CueScreen](https://github.com/gk345851/CueScreen)
 
 ---
@@ -67,5 +67,4 @@ I intentionally moved away from generic "Glassmorphism" to match **Cuemath's spe
 3. Add your `GEMINI_API_KEY`, `MONGO_URI`, and `SMTP_PASS` to `server/.env`.
 4. Run `npm start` (Backend) and `npm run dev` (Frontend).
 
-**Developed with ❤️ for the Cuemath AI Challenge.**
-**Deadline: 13th April 2026**
+
