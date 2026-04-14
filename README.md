@@ -20,7 +20,7 @@ Out of the three challenges, I selected the **AI Tutor Screener** for two primar
 
 ## 🛠️ The Tech Stack (Engineered for Scale & Cost)
 - **Frontend:** React + Vite (Vanilla CSS)
-- **Backend:** Node.js + Express
+- **Backend:** Node.js + Express (Railway)
 - **Database:** MongoDB (Mongoose) — Handles candidate persistence & security.
 - **AI Core:** **Google Gemini 2.5 Flash** (Primary Reasoning & Transcription).
 - **Authentication:** JWT + Bcrypt hashing.
