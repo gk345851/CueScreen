@@ -7,13 +7,13 @@
 ## 🎯 Why Problem 3? (The Choice)
 Out of the three challenges, I selected the **AI Tutor Screener** for two primary reasons:
 - **Scaling Quality:** Cuemath's biggest bottleneck isn't content generation or study tools, but the human-intensive process of vetting tutors. Automating this has the highest business ROI.
-- **Technical Complexity:** Building a natural voice-based conversational AI that evaluates 'soft skills' (patience, warmth) is a multi-dimensional engineering challenge. It required a deep dive into multimodal LLM architectures and real-time audio handling.
+- **Technical Complexity:** Building a natural voice-based conversational AI that evaluates 'soft-skills' (patience, warmth) is a multi-dimensional engineering challenge. It required a deep dive into multimodal LLM architectures and real-time audio handling.
 
 ---
 
 ## 🚀 Live Demo & Submission
-- **Live URL:** [Insert Vercel URL Here]
-- **Video Walkthrough:** [Insert Loom/YouTube Link Here]
+- **Live URL:** [https://cue-screen.vercel.app/](https://cue-screen.vercel.app/)
+- **Video Walkthrough:** [https://www.loom.com/share/7646e8161fd14a9d9b28e4645ac85c82](https://www.loom.com/share/7646e8161fd14a9d9b28e4645ac85c82)
 - **GitHub Repository:** [https://github.com/gk345851/CueScreen](https://github.com/gk345851/CueScreen)
 
 ---
@@ -65,6 +65,4 @@ I intentionally moved away from generic "Glassmorphism" to match **Cuemath's spe
 1. Clone the repo.
 2. Run `npm install` in both `client/` and `server/` folders.
 3. Add your `GEMINI_API_KEY`, `MONGO_URI`, and `SMTP_PASS` to `server/.env`.
-4. Run `npm start` (Backend) and `npm run dev` (Frontend).
-
-
+4. Run `npm start` (Backend on port `3001`) and `npm run dev` (Frontend on port `5173`).
